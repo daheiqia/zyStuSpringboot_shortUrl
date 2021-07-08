@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.mapper.UrlMapper">
+
+    <resultMap id="urlMap" type="com.zy.pojo.UrlCreate">
+        <id column="uid" property="uid"></id>
+        <result column="shorl_url_id" property="shortUrlId"></result>
+        <result column="long_url" property="longUrl"></result>
+        <result column="creat_time" property="createTime"></result>
+        <result column="last_view" property="lastView"></result>
+        <result column="view_pwd" property="viewPwd"></result>
+    </resultMap>
+
+
+    <insert id="createShortUrl">
+        insert into zy_url (uid,shorl_url_id,long_url,create_time,view_pwd)
+        values (#{uid},#{shortUrlId},#{longUrl},#{createTime},#{viewPwd})
+    </insert>
+
+    <select id="findByShortUrlId" resultMap="urlMap">
+        select * from zy_url where shorl_url_id = #{shortUrlId}
+    </select>
+
+    <update id="updateShortUrl">
+        update zy_url set last_view = #{lastView} where shorl_url_id = #{shortUrlId}
+    </update>
+
+    <select id="findByPwd" resultMap="urlMap">
+        select * from zy_url where shorl_url_id = #{shortUrlId} and view_pwd = #{viewPwd}
+    </select>
+</mapper>
+
